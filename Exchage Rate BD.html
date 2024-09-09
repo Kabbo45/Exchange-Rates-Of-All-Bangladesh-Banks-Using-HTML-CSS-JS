@@ -1,0 +1,333 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>PDF Viewer with Navigation and Date Selector</title>
+        <style>
+            body {
+                margin: 0;
+                background-color: #000000;
+                font-family:
+                    Roobert,
+                    -apple-system,
+                    BlinkMacSystemFont,
+                    "Segoe UI",
+                    Helvetica,
+                    Arial,
+                    sans-serif,
+                    "Apple Color Emoji",
+                    "Segoe UI Emoji",
+                    "Segoe UI Symbol";
+            }
+
+            .button-27 {
+                appearance: none;
+                background-color: #000000;
+                border: 2px solid #626262;
+                box-sizing: border-box;
+                color: #ffffff;
+                cursor: pointer;
+                display: inline-block;
+                font-family:
+                    Roobert,
+                    -apple-system,
+                    BlinkMacSystemFont,
+                    "Segoe UI",
+                    Helvetica,
+                    Arial,
+                    sans-serif,
+                    "Apple Color Emoji",
+                    "Segoe UI Emoji",
+                    "Segoe UI Symbol";
+                font-size: 14px;
+                font-weight: 600;
+                line-height: normal;
+                min-height: 45px;
+                min-width: 0;
+                outline: none;
+                padding: 17px 11px;
+                text-align: center;
+                text-decoration: none;
+                transition: all 300ms cubic-bezier(0.23, 1, 0.32, 1);
+                user-select: none;
+                -webkit-user-select: none;
+                touch-action: manipulation;
+                will-change: transform;
+            }
+
+            .button-27:hover {
+                box-shadow: #d6f918 0 8px 15px;
+                transform: translateY(2px);
+            }
+
+            .button-27:active {
+                box-shadow: none;
+                transform: translateY(0);
+            }
+
+            .navbar a:active {
+                box-shadow: none;
+                transform: translateY(0);
+            }
+
+            .navbar {
+                background-color: #000000;
+                color: #fff;
+                position: fixed;
+                width: 100%;
+            }
+
+            .pdf-viewer {
+                margin-top: 55px; /* Adjusted for navbar height */
+                width: 100%;
+                height: 80vh;
+                border: none;
+            }
+
+            .date-picker {
+                display: none;
+                background-color: #000000;
+                border: 2px solid #d6f918;
+                color: white;
+                border-radius: 15px;
+                position: fixed;
+                font-size: 16px;
+                font-weight: 600;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background-color: #000000;
+                padding: 13px 29px;
+                border: 2px solid #333;
+                box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+                z-index: 2000;
+            }
+
+            .date-picker:hover {
+                box-shadow: #d6f918 0 8px 15px;
+            }
+
+            .date-picker input {
+                width: 100%;
+            }
+
+            .button-28 {
+                background-color: #000000;
+                border: 2px solid #626262;
+                border-radius: 7px;
+                color: #ffffff;
+                cursor: pointer;
+                display: inline-block;
+                font-family:
+                    Roobert,
+                    -apple-system,
+                    BlinkMacSystemFont,
+                    "Segoe UI",
+                    Helvetica,
+                    Arial,
+                    sans-serif,
+                    "Apple Color Emoji",
+                    "Segoe UI Emoji",
+                    "Segoe UI Symbol";
+                font-size: 16px;
+                font-weight: 400;
+                margin: 10px 0px;
+                padding: 6px 11px;
+            }
+
+            .button-28:hover {
+                box-shadow: #d6f918 0 8px 15px;
+            }
+
+            .button-28:active {
+                box-shadow: none;
+                transform: translateY(0);
+            }
+
+            .link {
+                text-decoration: none;
+                color: #d6f918;
+            }
+
+            .footer {
+                align-content: center;
+                text-align: center;
+            }
+
+            .last {
+                display: inline-block;
+                background-color: #000000;
+                text-decoration: none;
+                color: #ffffff;
+                font-family:
+                    Roobert,
+                    -apple-system,
+                    BlinkMacSystemFont,
+                    "Segoe UI",
+                    Helvetica,
+                    Arial,
+                    sans-serif,
+                    "Apple Color Emoji",
+                    "Segoe UI Emoji",
+                    "Segoe UI Symbol";
+                font-size: 12px;
+                font-weight: 600;
+                display: inline-block;
+                width: 45%; /* Adjust the width as needed */
+                text-align: right;
+                vertical-align: center;
+            }
+
+            .name {
+                text-decoration: none;
+                color: #ffffff;
+                font-family:
+                    Roobert,
+                    -apple-system,
+                    BlinkMacSystemFont,
+                    "Segoe UI",
+                    Helvetica,
+                    Arial,
+                    sans-serif,
+                    "Apple Color Emoji",
+                    "Segoe UI Emoji",
+                    "Segoe UI Symbol";
+                font-size: 1.2em;
+                                cursor: wait;
+                text-shadow: #d6f918 0 24px 0px;
+                font-weight: 700;
+            }
+
+            .inline {
+                display: inline-block;
+                width: 54%; /* Adjust the width as needed */
+                text-align: left;
+                align-content: center;
+                display:inline-table;
+            }
+            
+        </style>
+    </head>
+    <body>
+        <div class="navbar">
+            <div class="inline">
+                <a class="button-27" id="homeLink">Today's Rate</a>
+                <button class="button-27" onclick="showDatePicker()">Select Date</button>
+                <a style="border: 1px solid #d8fb18" class="button-27" href="https://linktr.ee/kabbo.jpg">@kabbo.jpg</a>
+            </div>
+            <div class="last">Powered By <a class="link" href="https://bafeda.org.bd/">BAFEDA</a></div>
+        </div>
+
+        <!-- Floating Date Picker -->
+        <div id="datePicker" class="date-picker">
+            <label for="dateInput">Select a date:</label>
+            <input type="date" id="dateInput" onchange="loadPdfByDate()" />
+            <button class="button-28" onclick="hideDatePicker()">Close</button>
+        </div>
+
+        <!-- PDF Viewer -->
+        <iframe id="pdfViewer" class="pdf-viewer" title="PDF Viewer"> </iframe>
+
+        <div class="footer">
+            <a class="name">Exchange Rates of Bangladesh Banks</a>
+        </div>
+
+        <script>
+            function showDatePicker() {
+                document.getElementById("datePicker").style.display = "block";
+                setDateConstraints(); // Set constraints for the date picker
+            }
+
+            function hideDatePicker() {
+                document.getElementById("datePicker").style.display = "none";
+            }
+
+            function setDateConstraints() {
+                const dateInput = document.getElementById("dateInput");
+                const today = new Date();
+                const year = today.getFullYear();
+                const month = String(today.getMonth() + 1).padStart(2, "0");
+                const day = String(today.getDate()).padStart(2, "0");
+                dateInput.max = `${year}-${month}-${day}`; // Disable future dates
+
+                // Disable Fridays and Saturdays
+                const startDate = new Date(year, 0, 1);
+                const endDate = new Date(year + 1, 0, 1);
+                let disabledDates = [];
+
+                for (let d = startDate; d < endDate; d.setDate(d.getDate() + 1)) {
+                    const dayOfWeek = d.getDay();
+                    if (dayOfWeek === 5 || dayOfWeek === 6) {
+                        // 5 = Friday, 6 = Saturday
+                        disabledDates.push(d.toISOString().split("T")[0]);
+                    }
+                }
+
+                dateInput.addEventListener("input", function () {
+                    const selectedDate = dateInput.value;
+                    if (disabledDates.includes(selectedDate)) {
+                        alert("Fridays and Saturdays are not selectable. Please choose a different date.");
+                        dateInput.value = ""; // Clear the invalid date
+                    }
+                });
+            }
+
+            function loadPdfByDate() {
+                const dateInput = document.getElementById("dateInput").value;
+                if (dateInput) {
+                    const selectedDate = new Date(dateInput);
+                    const day = selectedDate.getUTCDay(); // Get the day of the week (0 = Sunday, 1 = Monday, ..., 5 = Friday, 6 = Saturday)
+
+                    if (day === 5 || day === 6) {
+                        // 5 = Friday, 6 = Saturday
+                        alert("Fridays and Saturdays are not selectable. Please choose a different date.");
+                        document.getElementById("dateInput").value = ""; // Clear the invalid date
+                    } else {
+                        const pdfUrl = `https://docs.google.com/viewerng/viewer?url=https://bafeda.org.bd/uploads/average/exchange/exchange-${dateInput}.pdf&embedded=true`;
+                        document.getElementById("pdfViewer").src = pdfUrl;
+                        hideDatePicker(); // Automatically hide the date picker after loading the PDF
+                    }
+                }
+            }
+
+            function loadPdfForDate(date) {
+                const pdfUrl = `https://docs.google.com/viewerng/viewer?url=https://bafeda.org.bd/uploads/average/exchange/exchange-${date}.pdf&embedded=true`;
+                document.getElementById("pdfViewer").src = pdfUrl;
+            }
+
+            function getFormattedDate(date) {
+                const year = date.getFullYear();
+                const month = String(date.getMonth() + 1).padStart(2, "0"); // Months are zero-based
+                const day = String(date.getDate()).padStart(2, "0");
+                return `${year}-${month}-${day}`;
+            }
+
+            // Initial PDF load logic
+            const today = new Date();
+            let targetDate = new Date(today); // Clone the date object
+            const dayOfWeek = today.getDay(); // 0 = Sunday, 1 = Monday, ..., 5 = Friday, 6 = Saturday
+
+            // Check if today is Friday (5) or Saturday (6)
+            if (dayOfWeek === 5) {
+                // If Friday
+                targetDate.setDate(today.getDate() - 1); // Previous Thursday
+            } else if (dayOfWeek === 6) {
+                // If Saturday
+                targetDate.setDate(today.getDate() - 2); // Previous Thursday
+            }
+
+            // Format the target date as YYYY-MM-DD
+            const formattedDate = getFormattedDate(targetDate);
+
+            // Construct the initial PDF URL with the calculated date
+            loadPdfForDate(formattedDate);
+
+            // Event listener for the home link
+            document.getElementById("homeLink").addEventListener("click", function (event) {
+                event.preventDefault(); // Prevent default link behavior
+                loadPdfForDate(getFormattedDate(new Date()));
+            });
+        </script>
+    </body>
+</html>
