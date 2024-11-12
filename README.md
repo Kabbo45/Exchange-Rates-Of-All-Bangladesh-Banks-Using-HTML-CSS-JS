@@ -26,4 +26,4 @@ This web application shows the most recent exchange rates of various banks in Ba
 3.  Bank Links: Select a bank from Bank FX-Rate dropdown for viewing the particular exchange rate documents.
 
 ## Visit the Website
-[**Click Me**](https://raw.githack.com/Kabbo45/Exchange-Rates-Of-All-Bangladesh-Banks-Using-HTML-CSS-JS/main/Exchage%20Rate%20BD.html).
+:point_right: [**Click Me**](https://raw.githack.com/Kabbo45/Exchange-Rates-Of-All-Bangladesh-Banks-Using-HTML-CSS-JS/main/Exchage%20Rate%20BD.html)
