@@ -1,4 +1,4 @@
- ![Alt text]([https://res.cloudinary.com/demo/image/upload/sample.jpg](https://github.com/Kabbo45/Exchange-Rates-Of-All-Bangladesh-Banks-Using-HTML-CSS-JS/blob/main/ExRate.png))
+ ![Alt text](https://github.com/Kabbo45/Exchange-Rates-Of-All-Bangladesh-Banks-Using-HTML-CSS-JS/blob/main/ExRate.png)
 # ExRate (Exchange Rates of All Bangladesh Banks)
 
 This web application shows the most recent exchange rates of various banks in Bangladesh. The rates are published on banks and financial authorities’ websites that are official. So, you can check the values of the Bangladeshi Taka (BDT) easily.
